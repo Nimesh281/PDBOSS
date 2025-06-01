@@ -71,10 +71,10 @@ export default function FormPage() {
   };
 
   const onSubmit = async (data: CompanyFormData) => {
-    if (companies.length >= 3 && !editingId) {
+    if (companies.length >= 4 && !editingId) {
       toast({
         title: "Limit Reached",
-        description: "You can only add up to 3 companies",
+        description: "You can only add up to 4 companies",
         variant: "destructive",
       });
       return;
@@ -170,13 +170,13 @@ export default function FormPage() {
             <Card className="bg-white/10 backdrop-blur-lg border-white/20 shadow-2xl">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-white">
-                  {companies.length >= 3 && !editingId ? 'Select Company to Edit' : (editingId ? 'Edit Company Details' : 'Add New Company')}
+                  {companies.length >= 4 && !editingId ? 'Select Company to Edit' : (editingId ? 'Edit Company Details' : 'Add New Company')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {companies.length >= 3 && !editingId ? (
+                {companies.length >= 4 && !editingId ? (
                   <div className="space-y-4">
-                    <p className="text-purple-200 mb-4">You have reached the maximum limit of 3 companies. Please select a company to edit:</p>
+                    <p className="text-purple-200 mb-4">You have reached the maximum limit of 4 companies. Please select a company to edit:</p>
                     <div className="grid gap-4">
                       {companies.map((company: any) => (
                         <Button
