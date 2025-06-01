@@ -152,7 +152,7 @@ export default function FormPage() {
               <Building2 className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 mb-4 animate-fade-in">
-              {editingId ? 'EDIT COMPANY' : 'ADD COMPANY'}
+              MANAGE COMPANIES
             </h1>
             <p className="text-xl text-purple-200 mb-8">Manage Your Business Information</p>
             
@@ -170,115 +170,133 @@ export default function FormPage() {
             <Card className="bg-white/10 backdrop-blur-lg border-white/20 shadow-2xl">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-white">
-                  {editingId ? 'Edit Company Details' : 'Add New Company'}
+                  {companies.length >= 3 && !editingId ? 'Select Company to Edit' : (editingId ? 'Edit Company Details' : 'Add New Company')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-purple-200 text-lg">Company Name</Label>
-                    <div className="relative">
-                      <Input
-                        id="name"
-                        {...form.register('name')}
-                        className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg h-12"
-                        placeholder="Enter your company name"
-                      />
-                      <Building2 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-400" />
+                {companies.length >= 3 && !editingId ? (
+                  <div className="space-y-4">
+                    <p className="text-purple-200 mb-4">You have reached the maximum limit of 3 companies. Please select a company to edit:</p>
+                    <div className="grid gap-4">
+                      {companies.map((company: any) => (
+                        <Button
+                          key={company.id}
+                          onClick={() => handleEdit(company)}
+                          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-4 rounded-xl flex items-center justify-between"
+                        >
+                          <span className="font-semibold">{company.name}</span>
+                          <PenLine className="w-5 h-5" />
+                        </Button>
+                      ))}
                     </div>
-                    {form.formState.errors.name && (
-                      <p className="text-red-400 text-sm">{form.formState.errors.name.message}</p>
-                    )}
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="ticketNumber" className="text-purple-200 text-lg">Ticket Number</Label>
-                    <div className="relative">
-                      <Input
-                        id="ticketNumber"
-                        {...form.register('ticketNumber')}
-                        className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg h-12"
-                        placeholder="Enter your ticket number"
-                      />
-                      <Hash className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-400" />
-                    </div>
-                    {form.formState.errors.ticketNumber && (
-                      <p className="text-red-400 text-sm">{form.formState.errors.ticketNumber.message}</p>
-                    )}
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-6">
+                ) : (
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-2">
-                      <Label htmlFor="openingTime" className="text-purple-200 text-lg">Opening Time</Label>
-                      <TimePickerInput
-                        id="openingTime"
-                        {...form.register('openingTime')}
-                        className="bg-white/5 border-purple-500/30 text-white text-lg h-12"
-                      />
-                      {form.formState.errors.openingTime && (
-                        <p className="text-red-400 text-sm">{form.formState.errors.openingTime.message}</p>
+                      <Label htmlFor="name" className="text-purple-200 text-lg">Company Name</Label>
+                      <div className="relative">
+                        <Input
+                          id="name"
+                          {...form.register('name')}
+                          className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg h-12"
+                          placeholder="Enter your company name"
+                        />
+                        <Building2 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-400" />
+                      </div>
+                      {form.formState.errors.name && (
+                        <p className="text-red-400 text-sm">{form.formState.errors.name.message}</p>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="closingTime" className="text-purple-200 text-lg">Closing Time</Label>
-                      <TimePickerInput
-                        id="closingTime"
-                        {...form.register('closingTime')}
-                        className="bg-white/5 border-purple-500/30 text-white text-lg h-12"
-                      />
-                      {form.formState.errors.closingTime && (
-                        <p className="text-red-400 text-sm">{form.formState.errors.closingTime.message}</p>
+                      <Label htmlFor="ticketNumber" className="text-purple-200 text-lg">Ticket Number</Label>
+                      <div className="relative">
+                        <Input
+                          id="ticketNumber"
+                          {...form.register('ticketNumber')}
+                          className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg h-12"
+                          placeholder="Enter your ticket number"
+                        />
+                        <Hash className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-400" />
+                      </div>
+                      {form.formState.errors.ticketNumber && (
+                        <p className="text-red-400 text-sm">{form.formState.errors.ticketNumber.message}</p>
                       )}
                     </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="jodiInfo" className="text-purple-200 text-lg">Jodi Information</Label>
-                    <div className="relative">
-                      <Textarea
-                        id="jodiInfo"
-                        {...form.register('jodiInfo')}
-                        className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg min-h-[120px]"
-                        placeholder="Enter your Jodi information"
-                      />
-                      <Zap className="absolute right-4 top-4 w-5 h-5 text-purple-400" />
+                    <div className="grid grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="openingTime" className="text-purple-200 text-lg">Opening Time</Label>
+                        <TimePickerInput
+                          id="openingTime"
+                          {...form.register('openingTime')}
+                          className="bg-white/5 border-purple-500/30 text-white text-lg h-12"
+                        />
+                        {form.formState.errors.openingTime && (
+                          <p className="text-red-400 text-sm">{form.formState.errors.openingTime.message}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="closingTime" className="text-purple-200 text-lg">Closing Time</Label>
+                        <TimePickerInput
+                          id="closingTime"
+                          {...form.register('closingTime')}
+                          className="bg-white/5 border-purple-500/30 text-white text-lg h-12"
+                        />
+                        {form.formState.errors.closingTime && (
+                          <p className="text-red-400 text-sm">{form.formState.errors.closingTime.message}</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="panelInfo" className="text-purple-200 text-lg">Panel Information</Label>
-                    <div className="relative">
-                      <Textarea
-                        id="panelInfo"
-                        {...form.register('panelInfo')}
-                        className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg min-h-[120px]"
-                        placeholder="Enter your Panel information"
-                      />
-                      <Target className="absolute right-4 top-4 w-5 h-5 text-purple-400" />
+                    <div className="space-y-2">
+                      <Label htmlFor="jodiInfo" className="text-purple-200 text-lg">Jodi Information</Label>
+                      <div className="relative">
+                        <Textarea
+                          id="jodiInfo"
+                          {...form.register('jodiInfo')}
+                          className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg min-h-[120px]"
+                          placeholder="Enter your Jodi information"
+                        />
+                        <Zap className="absolute right-4 top-4 w-5 h-5 text-purple-400" />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex space-x-4 pt-4">
-                    <Button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg h-12"
-                    >
-                      {loading ? (
-                        <>
-                          <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div>
-                          Saving...
-                        </>
-                      ) : (
-                        <>
-                          <Save className="w-5 h-5 mr-2" />
-                          {editingId ? 'Update Company' : 'Add Company'}
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </form>
+                    <div className="space-y-2">
+                      <Label htmlFor="panelInfo" className="text-purple-200 text-lg">Panel Information</Label>
+                      <div className="relative">
+                        <Textarea
+                          id="panelInfo"
+                          {...form.register('panelInfo')}
+                          className="bg-white/5 border-purple-500/30 text-white placeholder-purple-300/50 text-lg min-h-[120px]"
+                          placeholder="Enter your Panel information"
+                        />
+                        <Target className="absolute right-4 top-4 w-5 h-5 text-purple-400" />
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-4 pt-4">
+                      <Button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg h-12"
+                      >
+                        {loading ? (
+                          <>
+                            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div>
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            <Save className="w-5 h-5 mr-2" />
+                            {editingId ? 'Update Company' : 'Add Company'}
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+                )}
               </CardContent>
             </Card>
 

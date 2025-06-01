@@ -14,8 +14,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Company Display",
+  title: "PDBOSS",
   description: "Display and manage company information",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
