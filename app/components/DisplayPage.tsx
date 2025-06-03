@@ -88,17 +88,8 @@ export default function ModernDisplayPage() {
               <Building2 className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 mb-4 animate-fade-in">
-              PDBOSS
+              FANCY MATKA
             </h1>
-            <p className="text-xl text-purple-200 mb-8">Real-time Business Dashboard</p>
-            
-            <Link 
-              href="/update-form"
-              className="group inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300"
-            >
-              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-              Manage Companies
-            </Link>
           </div>
           
           {/* Companies Grid */}

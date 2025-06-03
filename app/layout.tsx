@@ -15,8 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PDBOSS",
-  description: "Display and manage company information",
+  title: "FANCY MATKA",
+  description: "FANCY MATKA",
   icons: {
     icon: '/favicon.ico',
   },
