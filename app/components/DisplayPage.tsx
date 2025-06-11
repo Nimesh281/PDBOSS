@@ -58,6 +58,28 @@ export default function ModernDisplayPage() {
     return `${hour12.toString().padStart(2, '0')}:${minutes} ${ampm}`;
   };
 
+  const preferredOrder = [
+    'Lucky Day',
+    'Lucky Night',
+    'Kalyan',
+    'Main Bazar'
+  ];
+
+  const sortCompanies = (companies: Company[]) => {
+    const ordered = [...companies].sort((a, b) => {
+      const aIndex = preferredOrder.findIndex(
+        name => a.name.trim().toLowerCase() === name.toLowerCase()
+      );
+      const bIndex = preferredOrder.findIndex(
+        name => b.name.trim().toLowerCase() === name.toLowerCase()
+      );
+      if (aIndex === -1 && bIndex === -1) return a.name.localeCompare(b.name);
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
+    return ordered;
+  };
 
   if (loading) {
     return (
@@ -112,7 +134,7 @@ export default function ModernDisplayPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {companies.map((company, index) => (
+              {sortCompanies(companies).map((company, index) => (
                 <div
                   key={company.id}
                   className="group relative animate-popup"
